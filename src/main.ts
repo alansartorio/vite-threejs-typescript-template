@@ -14,6 +14,13 @@ scene.add( cube );
 
 camera.position.z = 5;
 
+function onWindowResize() {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+}
+window.addEventListener('resize', onWindowResize);
+
 function animate() {
 	requestAnimationFrame( animate );
 	renderer.render( scene, camera );
