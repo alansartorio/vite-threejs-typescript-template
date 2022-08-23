@@ -7,6 +7,8 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
+const clock = new THREE.Clock();
+
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 const cube = new THREE.Mesh( geometry, material );
@@ -21,8 +23,16 @@ function onWindowResize() {
 }
 window.addEventListener('resize', onWindowResize);
 
-function animate() {
-	requestAnimationFrame( animate );
-	renderer.render( scene, camera );
+function update(dt: number) {
+	cube.rotation.x += dt;
+	cube.rotation.y += dt;
 }
+
+function animate() {
+	let dt = clock.getDelta();
+	requestAnimationFrame(animate);
+	update(dt);
+	renderer.render(scene, camera);
+}
+clock.start();
 animate();
